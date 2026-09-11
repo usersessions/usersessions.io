@@ -3,8 +3,7 @@ import { QueueClient } from '@/components/QueueClient'
 import { redirect } from 'next/navigation'
 import { getFeatureAccess } from '@/hooks/useFeatureAccess'
 import { SiteAnalyticsPanel } from '@/components/analytics/SiteAnalyticsPanel'
-import { RealtimeVisitorPanel } from '@/components/RealtimeVisitorPanel'
-import { LiveMap } from '@/components/LiveMap'
+import { TopPagesPanel } from '@/components/analytics/TopPagesPanel'
 
 export const dynamic = 'force-dynamic'
 
@@ -47,11 +46,8 @@ export default async function DashboardQueuePage() {
         chartData={[]}
       />
 
-      {/* Globe + Live Visitors */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: 24, alignItems: 'start' }}>
-        <LiveMap clientId={clientId} />
-        <RealtimeVisitorPanel clientId={clientId} />
-      </div>
+      {/* Top Pages */}
+      <TopPagesPanel clientId={clientId} />
 
       {/* AI Actions queue */}
       <QueueClient isAtLeastPro={isAtLeastPro} isAtLeastStarter={isAtLeastStarter} />
