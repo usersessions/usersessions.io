@@ -38,11 +38,42 @@ const AI_TOOLS = [
   },
 ]
 
+type Tab = 'claude' | 'cursor' | 'other'
+
+const TABS: { id: Tab; label: string }[] = [
+  { id: 'claude', label: 'Claude Code' },
+  { id: 'cursor', label: 'Cursor / Windsurf' },
+  { id: 'other',  label: 'Any MCP agent' },
+]
+
+const COMMANDS: Record<Tab, { display: string; copy: string }> = {
+  claude: {
+    display: 'claude mcp add usersessions sse https://mcp.usersessions.io/sse \\\n  --header "Authorization: Bearer <your-api-key>"',
+    copy:    'claude mcp add usersessions sse https://mcp.usersessions.io/sse --header "Authorization: Bearer <your-api-key>"',
+  },
+  cursor: {
+    display: `// .cursor/mcp.json\n{\n  "mcpServers": {\n    "usersessions": {\n      "url": "https://mcp.usersessions.io/sse",\n      "headers": { "Authorization": "Bearer <your-api-key>" }\n    }\n  }\n}`,
+    copy: JSON.stringify({
+      mcpServers: {
+        usersessions: {
+          url: 'https://mcp.usersessions.io/sse',
+          headers: { Authorization: 'Bearer <your-api-key>' },
+        },
+      },
+    }, null, 2),
+  },
+  other: {
+    display: 'SSE endpoint: https://mcp.usersessions.io/sse\nAuth header:  Authorization: Bearer <your-api-key>',
+    copy: 'https://mcp.usersessions.io/sse',
+  },
+}
+
 export function OpenSourceSection() {
+  const [activeTab, setActiveTab] = useState<Tab>('claude')
   const [copied, setCopied] = useState(false)
 
   const handleCopy = () => {
-    navigator.clipboard.writeText('claude mcp add usersessions sse https://mcp.usersessions.io/sse')
+    navigator.clipboard.writeText(COMMANDS[activeTab].copy)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
   }
@@ -74,23 +105,46 @@ export function OpenSourceSection() {
               Use the MCP server to connect UserSessions directly to Claude Code, Cursor, Codex, or any MCP-compatible agent. Your agent can read findings and execute fixes automatically.
             </p>
 
-            <div className="copy-box" onClick={handleCopy} role="button" tabIndex={0}>
-              <div className="copy-code">
-                <span className="npx">claude</span> mcp add usersessions sse https://mcp.usersessions.io/sse
+            {/* ── Tabbed copy box ──────────────────────────────── */}
+            <div className="mcp-box">
+              {/* Tab bar */}
+              <div className="mcp-tabs">
+                {TABS.map(t => (
+                  <button
+                    key={t.id}
+                    className={`mcp-tab${activeTab === t.id ? ' mcp-tab--active' : ''}`}
+                    onClick={() => { setActiveTab(t.id); setCopied(false) }}
+                  >
+                    {t.label}
+                  </button>
+                ))}
               </div>
-              <button className="copy-btn" aria-label="Copy command">
-                {copied ? (
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="20 6 9 17 4 12" />
-                  </svg>
-                ) : (
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-                  </svg>
-                )}
-              </button>
+
+              {/* Code body + copy button */}
+              <div className="mcp-body">
+                <pre className="mcp-code">{COMMANDS[activeTab].display}</pre>
+                <button
+                  className="copy-btn mcp-copy-btn"
+                  aria-label="Copy"
+                  onClick={handleCopy}
+                >
+                  {copied ? (
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                  ) : (
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                    </svg>
+                  )}
+                </button>
+              </div>
             </div>
+
+            <p className="mcp-hint">
+              Get your API key from <strong>Settings → MCP Server Access</strong> after signing in.
+            </p>
           </div>
 
           {/* Column 2: Open Source */}
