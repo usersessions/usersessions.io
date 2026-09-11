@@ -4,6 +4,8 @@ import { createClient } from '@/lib/supabase/server'
 import { PLANS, PLAN_ORDER, PAYSTACK_CHECKOUT, getPlanConfig, normalizePlanId, type PlanId } from '@/lib/tiers'
 import { PiCreditCardBold, PiCheckBold, PiArrowUpBold, PiArrowDownBold, PiChatCircleBold, PiLightningBold } from 'react-icons/pi'
 
+import { UpgradeButton } from './components/UpgradeButton'
+
 export const metadata = {
   title: 'Billing & Plan | UserSessions',
 }
@@ -135,22 +137,7 @@ export default async function BillingPage() {
               </Link>
             )
           } else if (isUpgrade && checkoutUrl) {
-            actionEl = (
-              <Link
-                href={checkoutUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="ds-btn-approve"
-                style={{
-                  textDecoration: 'none', padding: '9px 18px', fontSize: '13px',
-                  display: 'flex', alignItems: 'center', gap: 6, whiteSpace: 'nowrap',
-                  background: 'var(--green)', borderColor: 'var(--green)', color: '#fff',
-                }}
-              >
-                <PiArrowUpBold size={13} />
-                Upgrade
-              </Link>
-            )
+            actionEl = <UpgradeButton planId={id} />
           } else if (isDowngrade) {
             actionEl = (
               <Link

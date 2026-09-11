@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useEffect, useCallback, useRef } from 'react'
+import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from "motion/react"
 import {
   PiChatCircleTextBold,
@@ -29,6 +30,7 @@ const TYPE_OPTIONS: { id: FeedbackType; icon: React.ReactNode; label: string; co
 
 export function FeedbackButton({ label = 'Feedback', userEmail }: FeedbackButtonProps) {
   const [open, setOpen]       = useState(false)
+  const [mounted, setMounted] = useState(false)
   const [type, setType]       = useState<FeedbackType>('bug')
   const [email, setEmail]     = useState(userEmail ?? '')
   const [message, setMessage] = useState('')
@@ -36,6 +38,9 @@ export function FeedbackButton({ label = 'Feedback', userEmail }: FeedbackButton
   const [step, setStep]       = useState<'form' | 'success'>('form')
   const [error, setError]     = useState('')
   const textareaRef           = useRef<HTMLTextAreaElement>(null)
+
+  // Portal mount guard — ensures we only render into document.body on the client
+  useEffect(() => { setMounted(true) }, [])
 
   // Sync email if userEmail prop changes
   useEffect(() => {
@@ -110,7 +115,8 @@ export function FeedbackButton({ label = 'Feedback', userEmail }: FeedbackButton
         {label}
       </button>
 
-      {/* ── Modal ── */}
+      {/* ── Modal — rendered via portal to escape sticky header stacking context ── */}
+      {mounted && createPortal(
       <AnimatePresence>
         {open && (
           <motion.div
@@ -449,6 +455,7 @@ export function FeedbackButton({ label = 'Feedback', userEmail }: FeedbackButton
           </motion.div>
         )}
       </AnimatePresence>
+      , document.body)}
 
       <style>{`
         @keyframes fb-spin { to { transform: rotate(360deg); } }

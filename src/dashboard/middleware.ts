@@ -83,7 +83,15 @@ export async function middleware(request: NextRequest) {
   // Beacon routes carry no session cookie; skip the Supabase round-trip entirely.
   if (isBeacon) return withSecurityHeaders(NextResponse.next({ request }))
 
+  const isPublic = PUBLIC_PREFIXES.some((p) => path === p || path.startsWith(p + '/'))
+  const hasAuthCookie = request.cookies.getAll().some(c => c.name.startsWith('sb-') && c.name.endsWith('-auth-token'))
+
   let response = NextResponse.next({ request })
+
+  // Fast-path: if they are hitting a public page and have no session cookie, skip the expensive Supabase verification
+  if (isPublic && !hasAuthCookie) {
+    return withSecurityHeaders(response)
+  }
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -106,8 +114,6 @@ export async function middleware(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser()
 
-  const isPublic = PUBLIC_PREFIXES.some((p) => path === p || path.startsWith(p + '/'))
-
   if (!user && !isPublic) {
     const url = request.nextUrl.clone()
     if (path === '/') {
@@ -125,5 +131,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!_next/static|_next/image|favicon.ico|sitemap\\.xml|robots\\.txt|manifest\\.webmanifest|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|xml|txt)$).*)'],
+  matcher: ['/((?!_next/static|_next/image|favicon.ico|sitemap\\.xml|robots\\.txt|manifest\\.webmanifest|.*\\.(?:js|svg|png|jpg|jpeg|gif|webp|ico|xml|txt)$).*)'],
 }
