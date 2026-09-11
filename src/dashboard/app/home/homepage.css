@@ -339,7 +339,7 @@ p { margin: 0; }
 
 /* Ecosystem Section */
 .ecosystem-section {
-  padding: 120px 24px;
+  padding: 60px 24px;
   background: #fafafa;
   text-align: center;
   position: relative;
@@ -1001,7 +1001,7 @@ section { padding: 80px 0; position: relative; background: transparent; }
 
 /* ─── Pricing Section ───────────────────────────────────────────────────── */
 .pricing-section {
-  padding: 120px 0;
+  padding: 60px 0;
   background: var(--bg-raised);
 }
 .pricing-head {
@@ -1097,7 +1097,7 @@ section { padding: 80px 0; position: relative; background: transparent; }
 
 /* ── Open Source & AI Connection Section ─────────────────────────────────── */
 .oss-section {
-  padding: 100px 0;
+  padding: 60px 0;
   position: relative;
   z-index: 10;
   overflow: hidden; /* keep the glow contained */
@@ -1132,7 +1132,7 @@ section { padding: 80px 0; position: relative; background: transparent; }
 }
 
 .oss-card {
-  padding: 28px 32px;
+  padding: 20px 24px;
   border-radius: 20px;
   display: flex;
   flex-direction: column;

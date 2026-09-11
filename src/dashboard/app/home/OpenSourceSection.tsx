@@ -76,7 +76,7 @@ export function OpenSourceSection() {
 
             <div className="copy-box" onClick={handleCopy} role="button" tabIndex={0}>
               <div className="copy-code">
-                <span className="npx">npx</span> @usersessions/cli connect
+                <span className="npx">URL:</span> https://mcp.usersessions.io/sse
               </div>
               <button className="copy-btn" aria-label="Copy command">
                 {copied ? (
@@ -106,7 +106,7 @@ export function OpenSourceSection() {
               UserSessions.io is open source: run it on your own infrastructure with your own keys, or let us run it for you in the cloud. Same software, same dashboard, your call on where the data lives.
             </p>
 
-            <a href="https://github.com/usersessions/usersessions" target="_blank" rel="noopener noreferrer" className="oss-btn">
+            <a href="https://github.com/usersessions/usersessions.io" target="_blank" rel="noopener noreferrer" className="oss-btn">
               View on GitHub
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12h14" />

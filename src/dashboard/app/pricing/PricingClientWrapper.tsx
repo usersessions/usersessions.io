@@ -21,7 +21,7 @@ const FEATURES: FeatureRow[] = [
   { label: 'Session replay',              starter: true,           pro: true,             business: true,          enterprise: true },
   { label: 'Heatmaps & click maps',       starter: true,           pro: true,             business: true,          enterprise: true },
   { label: 'AI classification',           starter: true,           pro: true,             business: true,          enterprise: true },
-  { label: 'Composio integrations',       starter: true,           pro: true,             business: true,          enterprise: true },
+  { label: 'App integrations',       starter: true,           pro: true,             business: true,          enterprise: true },
   { label: 'Sites',                       starter: '1',            pro: '5',              business: '15',          enterprise: 'Unlimited' },
   { label: 'Team seats',                  starter: '1',            pro: '5',              business: '10',          enterprise: 'Unlimited' },
   { label: 'MCP server access',           starter: 'Read-only',    pro: 'Read + write',   business: 'Read + write', enterprise: 'Read + write' },
@@ -174,7 +174,7 @@ function EnterpriseBanner() {
         </h3>
         <p style={{ marginTop: 10, marginBottom: 0, fontSize: 15, color: 'var(--ink-muted)', lineHeight: 1.65, fontWeight: 500, maxWidth: 480 }}>
           Mission-critical session analysis at scale. Take the self-hosted license at{' '}
-          <strong style={{ color: 'var(--ink)' }}>$30,000/year</strong> (unlimited sessions, BYO Composio credentials),
+          <strong style={{ color: 'var(--ink)' }}>$30,000/year</strong> (unlimited sessions, unlimited automated actions),
           or opt for fully managed infrastructure starting at{' '}
           <strong style={{ color: 'var(--ink)' }}>$12,000/mo</strong>.
         </p>
