@@ -103,7 +103,7 @@ export async function POST(req: Request) {
   const { error: sessionErr } = await supabase.from('us_sessions').upsert({
     id: sessionId,
     client_id: clientId,
-    source: 'first_party',
+    source: 'crawler',
     source_session_id: sessionId,
     ingested_at: now,
     pii_masked: true,
