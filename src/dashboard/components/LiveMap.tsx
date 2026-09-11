@@ -98,6 +98,7 @@ export function LiveMap({ clientId }: { clientId: string | null }) {
       markerColor: [0.133, 0.772, 0.368], // #22c55e
       glowColor: isDark ? [0.1, 0.1, 0.1] : [0.9, 0.9, 0.9],
       markers: plotted as any,
+      // @ts-expect-error - onRender is valid at runtime but missing in COBEOptions types
       onRender: (state) => {
         state.phi = phi;
         phi += 0.003;
