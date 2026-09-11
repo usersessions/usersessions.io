@@ -103,13 +103,12 @@ export async function POST(req: Request) {
   const { error: sessionErr } = await supabase.from('us_sessions').upsert({
     id: sessionId,
     client_id: clientId,
-    source: 'crawler',
+    source: 'posthog',
     source_session_id: sessionId,
     ingested_at: now,
     pii_masked: true,
     rage_click_count: rageClickCount,
     error_count: errorCount,
-    scroll_depth_pct: scrollDepth,
     raw_metadata: {
       viewport,
       appliedPatches: Array.isArray(data.appliedPatches) ? data.appliedPatches.slice(0, 50) : [],
