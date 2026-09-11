@@ -60,8 +60,8 @@ const features = [
     openreplay: { value: 'Configurable', isAvailable: true },
   },
   {
-    name: 'Composio-powered execution',
-    us: { value: 'Yes (500+ app actions)', isAvailable: true },
+    name: 'Automated action execution',
+    us: { value: 'Yes (500+ app integrations)', isAvailable: true },
     hotjar: { value: 'No', isAvailable: false },
     contentsquare: { value: 'No', isAvailable: false },
     posthog: { value: 'No', isAvailable: false },

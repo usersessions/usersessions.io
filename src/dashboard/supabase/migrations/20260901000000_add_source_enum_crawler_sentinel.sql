@@ -1,0 +1,11 @@
+-- NOTE: No DDL change needed.
+-- The /api/audit/initial crawler uses 'logrocket' as a sentinel source
+-- for synthetic sessions it creates. This is already within the allowed
+-- CHECK (source IN ('datadog_rum','posthog','fullstory','logrocket','hotjar'))
+-- on us_sessions.
+--
+-- If a dedicated 'crawler' source enum value is desired, add it here:
+-- ALTER TABLE us_sessions DROP CONSTRAINT us_sessions_source_check;
+-- ALTER TABLE us_sessions ADD CONSTRAINT us_sessions_source_check
+--   CHECK (source IN ('datadog_rum','posthog','fullstory','logrocket','hotjar','crawler'));
+-- And update the route to use source='crawler'.

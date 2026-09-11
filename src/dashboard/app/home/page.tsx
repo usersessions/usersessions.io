@@ -199,7 +199,7 @@ export default function HomePage() {
             <Link className="btn btn--ember" href="/login">Start free trial</Link>
             <a
               className="btn btn--ghost"
-              href="https://github.com/usersessions/usersessions"
+              href="https://github.com/usersessions/usersessions.io"
               target="_blank"
               rel="noopener noreferrer"
             >

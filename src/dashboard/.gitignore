@@ -1,0 +1,9 @@
+# Cloudflare / OpenNext build artifacts
+.open-next/
+.wrangler/
+.dev.vars
+
+# Environment files (belt and braces with the root .gitignore)
+.env
+.env.*
+!.env.example

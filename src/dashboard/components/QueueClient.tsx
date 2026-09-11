@@ -439,8 +439,8 @@ export function QueueClient({ isAtLeastPro = false, isAtLeastStarter = false }: 
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                       {selectedFinding.us_actions.filter(a => a.status === 'approve_required').map(act => (
                         <div key={act.id} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                          <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-primary)' }}>{act.composio_toolkit}</span>
-                          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--text-secondary)' }}>{act.composio_action.replace(/_/g, ' ')}</span>
+                          <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-primary)' }}>{act.composio_toolkit.charAt(0).toUpperCase() + act.composio_toolkit.slice(1).toLowerCase()}</span>
+                          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--text-secondary)' }}>{act.composio_action.replace(/_/g, ' ').toLowerCase()}</span>
                         </div>
                       ))}
                     </div>

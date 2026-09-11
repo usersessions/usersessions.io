@@ -651,50 +651,54 @@ export default function OnboardingPage() {
                 </p>
               </div>
 
-              <StepCard>
+              <div style={{
+                background: 'rgba(255, 255, 255, 0.5)',
+                backdropFilter: 'blur(24px) saturate(140%)',
+                WebkitBackdropFilter: 'blur(24px) saturate(140%)',
+                borderRadius: 24,
+                border: '1px solid rgba(255, 255, 255, 0.8)',
+                padding: '24px',
+                boxShadow: '0 12px 40px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.8)',
+              }}>
                 {/* Heatmap link — honest, no fake dots */}
-                <a href="/sessions" style={{ display: 'block', textDecoration: 'none', marginBottom: 20 }}>
-                  <div
+                <a href="/sessions" style={{ display: 'block', textDecoration: 'none', marginBottom: 24 }}>
+                  <motion.div
+                    whileHover={{ scale: 1.01 }}
+                    whileTap={{ scale: 0.98 }}
+                    transition={{ type: 'spring', bounce: 0, duration: 0.3 }}
                     style={{
-                      background: '#f8fafc', border: '1.5px solid #e2e8f0',
-                      borderRadius: 12, padding: '18px 20px',
-                      display: 'flex', alignItems: 'center', gap: 14,
-                      transition: 'border-color 0.2s, box-shadow 0.2s', cursor: 'pointer',
+                      background: '#fff', border: '1px solid rgba(0,0,0,0.06)',
+                      borderRadius: 16, padding: '16px 20px',
+                      display: 'flex', alignItems: 'center', gap: 16,
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.02)'
                     }}
-                    onMouseEnter={e => { e.currentTarget.style.borderColor = '#f97316'; e.currentTarget.style.boxShadow = '0 4px 16px rgba(249,115,22,0.1)' }}
-                    onMouseLeave={e => { e.currentTarget.style.borderColor = '#e2e8f0'; e.currentTarget.style.boxShadow = 'none' }}
                   >
                     <div style={{
-                      width: 44, height: 44, borderRadius: 12, flexShrink: 0,
-                      background: 'rgba(249,115,22,0.1)', border: '1.5px solid rgba(249,115,22,0.2)',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20,
+                      width: 48, height: 48, borderRadius: 14, flexShrink: 0,
+                      background: 'linear-gradient(135deg, rgba(249,115,22,0.1), rgba(249,115,22,0.05))', 
+                      border: '1px solid rgba(249,115,22,0.15)',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24,
+                      boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.8)',
                     }}>
                       🔥
                     </div>
                     <div style={{ flex: 1 }}>
-                      <p style={{ margin: '0 0 2px', fontSize: 14, fontWeight: 600, color: '#0f172a' }}>
+                      <p style={{ margin: '0 0 4px', fontSize: 15, fontWeight: 600, color: 'var(--obsidian)' }}>
                         {realSessionCount !== null && realSessionCount > 0
                           ? `${realSessionCount} session${realSessionCount > 1 ? 's' : ''} recorded`
                           : 'Heatmap forming...'}
                       </p>
-                      <p style={{ margin: 0, fontSize: 12, color: '#94a3b8' }}>
+                      <p style={{ margin: 0, fontSize: 13, color: 'var(--ink-soft)', fontWeight: 500 }}>
                         Open the live heatmap dashboard →
                       </p>
                     </div>
-                    <motion.span
-                      animate={{ x: [0, 4, 0] }}
-                      transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
-                      style={{ fontSize: 18, color: '#cbd5e1' }}
-                    >
-                      →
-                    </motion.span>
-                  </div>
+                  </motion.div>
                 </a>
 
                 {/* Slack section */}
-                <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: 20 }}>
-                  <p style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 14 }}>
-                    The part Hotjar can't do
+                <div style={{ borderTop: '1px solid rgba(0,0,0,0.06)', paddingTop: 24 }}>
+                  <p style={{ fontFamily: "var(--mono)", fontSize: 11, fontWeight: 600, color: 'var(--ink-muted)', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 16 }}>
+                    The Autonomous Layer
                   </p>
 
                   {/* First-party audit result — or loading state */}
@@ -703,29 +707,29 @@ export default function OnboardingPage() {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       style={{
-                        background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12,
-                        padding: '14px 16px', marginBottom: 16,
-                        boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
-                        display: 'flex', gap: 12, alignItems: 'center',
+                        background: '#fff', border: '1px solid rgba(0,0,0,0.06)', borderRadius: 16,
+                        padding: '16px 20px', marginBottom: 20,
+                        boxShadow: '0 2px 12px rgba(0,0,0,0.02)',
+                        display: 'flex', gap: 16, alignItems: 'center',
                       }}
                     >
                       <div style={{
-                        width: 36, height: 36, borderRadius: 9, flexShrink: 0,
-                        background: 'rgba(249,115,22,0.08)', border: '1.5px solid rgba(249,115,22,0.2)',
+                        width: 40, height: 40, borderRadius: 12, flexShrink: 0,
+                        background: 'rgba(232,90,43,0.06)', border: '1px solid rgba(232,90,43,0.15)',
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
                       }}>
-                        <motion.span
-                          animate={{ rotate: 360 }}
-                          transition={{ duration: 1.5, repeat: Infinity, ease: 'linear' }}
-                          style={{ display: 'inline-block', fontSize: 16 }}
-                        >⟳</motion.span>
+                        <motion.div
+                          animate={{ scale: [0.8, 1.1, 0.8], opacity: [0.5, 1, 0.5] }}
+                          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                          style={{ width: 12, height: 12, borderRadius: '50%', background: 'var(--ember)' }}
+                        />
                       </div>
                       <div style={{ flex: 1 }}>
-                        <p style={{ margin: '0 0 2px', fontSize: 13, fontWeight: 600, color: '#0f172a' }}>
-                           Analyzing your real sessions...
+                        <p style={{ margin: '0 0 4px', fontSize: 14, fontWeight: 600, color: 'var(--obsidian)' }}>
+                           Analyzing real sessions...
                         </p>
-                        <p style={{ margin: 0, fontSize: 12, color: '#94a3b8' }}>
-                          Reading rage-click signals, dead clicks, and friction patterns from your users.
+                        <p style={{ margin: 0, fontSize: 13, color: 'var(--ink-soft)', lineHeight: 1.4 }}>
+                          Reading rage-click signals and friction patterns from your users.
                         </p>
                       </div>
                     </motion.div>
@@ -734,25 +738,26 @@ export default function OnboardingPage() {
                       initial={{ opacity: 0, y: 8 }}
                       animate={{ opacity: 1, y: 0 }}
                       style={{
-                        background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12,
-                        padding: '14px 16px', marginBottom: 16,
-                        boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
-                        display: 'flex', gap: 12, alignItems: 'flex-start',
+                        background: '#fff', border: '1px solid rgba(0,0,0,0.06)', borderRadius: 16,
+                        padding: '16px 20px', marginBottom: 20,
+                        boxShadow: '0 4px 16px rgba(0,0,0,0.04)',
+                        display: 'flex', gap: 16, alignItems: 'flex-start',
                       }}
                     >
                       <div style={{
-                        width: 36, height: 36, borderRadius: 9, flexShrink: 0,
+                        width: 40, height: 40, borderRadius: 12, flexShrink: 0,
                         background: '#4A154B', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.2)',
                       }}>
-                        <Slock size={18} color="#fff" />
+                        <Slock size={20} color="#fff" />
                       </div>
                       <div style={{ flex: 1, minWidth: 0 }}>
-                        <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 4 }}>
-                          <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>UserSessions.io</span>
-                          <span style={{ fontSize: 11, color: '#f97316', fontWeight: 600 }}>{auditFinding.severity}</span>
-                          <span style={{ fontSize: 11, color: '#94a3b8' }}>just now</span>
+                        <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 6 }}>
+                          <span style={{ fontSize: 14, fontWeight: 600, color: 'var(--obsidian)' }}>UserSessions</span>
+                          <span style={{ fontSize: 11, color: 'var(--ember)', fontWeight: 600, padding: '2px 6px', background: 'var(--ember-glow)', borderRadius: 4 }}>{auditFinding.severity}</span>
+                          <span style={{ fontSize: 12, color: 'var(--ink-muted)' }}>just now</span>
                         </div>
-                        <p style={{ margin: 0, fontSize: 13, color: '#334155', lineHeight: 1.5 }}>
+                        <p style={{ margin: 0, fontSize: 14, color: 'var(--ink)', lineHeight: 1.5 }}>
                           {auditFinding.summary.replace('[First-Party Audit] ', '').replace('[Initial Audit] ', '')}
                         </p>
                       </div>
@@ -760,59 +765,65 @@ export default function OnboardingPage() {
                   ) : (
                     /* Empty state: audit hasn't kicked off yet or no sessions collected */
                     <div style={{
-                      background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12,
-                      padding: '14px 16px', marginBottom: 16,
-                      boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
-                      display: 'flex', gap: 12, alignItems: 'flex-start',
+                      background: '#fff', border: '1px solid rgba(0,0,0,0.06)', borderRadius: 16,
+                      padding: '16px 20px', marginBottom: 20,
+                      boxShadow: '0 2px 12px rgba(0,0,0,0.02)',
+                      display: 'flex', gap: 16, alignItems: 'flex-start',
                     }}>
                       <div style={{
-                        width: 36, height: 36, borderRadius: 9, flexShrink: 0,
-                        background: 'rgba(249,115,22,0.08)',
-                        border: '1.5px solid rgba(249,115,22,0.2)',
-                        display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16,
+                        width: 40, height: 40, borderRadius: 12, flexShrink: 0,
+                        background: 'rgba(0,0,0,0.03)',
+                        border: '1px solid rgba(0,0,0,0.06)',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20,
                       }}>
                         📡
                       </div>
                       <div style={{ flex: 1, minWidth: 0 }}>
-                        <p style={{ margin: '0 0 2px', fontSize: 13, fontWeight: 600, color: '#0f172a' }}>
-                          Collecting first session data
+                        <p style={{ margin: '0 0 4px', fontSize: 14, fontWeight: 600, color: 'var(--obsidian)' }}>
+                          Waiting for first session
                         </p>
-                        <p style={{ margin: 0, fontSize: 12, color: '#94a3b8', lineHeight: 1.5 }}>
+                        <p style={{ margin: 0, fontSize: 13, color: 'var(--ink-soft)', lineHeight: 1.5 }}>
                           {realSessionCount !== null && realSessionCount > 0
                             ? `${realSessionCount} session${realSessionCount > 1 ? 's' : ''} captured — friction analysis will appear shortly.`
-                            : 'Visit your site in a browser to send the first beacon. Your first friction report will appear here automatically.'}
+                            : 'Visit your site to send the first beacon. Automated friction reports will appear here.'}
                         </p>
                       </div>
                     </div>
                   )}
 
                   {status?.connectedApps?.includes('slack') ? (
-                    <div style={{ padding: '12px 16px', background: 'rgba(34,197,94,0.08)', border: '1px solid rgba(34,197,94,0.2)', borderRadius: 10, marginBottom: 12 }}>
+                    <div style={{ padding: '12px 16px', background: 'rgba(34,197,94,0.08)', border: '1px solid rgba(34,197,94,0.2)', borderRadius: 10, marginBottom: 16 }}>
                       <span style={{ fontSize: 13, color: '#16a34a', fontWeight: 600 }}>✓ Slack connected — alerts are live</span>
                     </div>
                   ) : (
-                    <a href="/connect?highlight=slack" className="btn-dash-primary"
-                      style={{ display: 'inline-flex', alignItems: 'center', gap: 10, padding: '12px 20px', fontSize: 14, textDecoration: 'none', marginBottom: 10 }}>
+                    <motion.a 
+                      whileHover={{ scale: 1.01 }}
+                      whileTap={{ scale: 0.98 }}
+                      href="/connect?highlight=slack" 
+                      className="btn btn--ember btn-spring"
+                      style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, padding: '14px', fontSize: 14, textDecoration: 'none', marginBottom: 16, borderRadius: 12 }}
+                    >
                       <Slock size={18} />
                       Connect Slack to get alerts like this
-                    </a>
+                    </motion.a>
                   )}
 
-                  <button
+                  <motion.button
+                    whileHover={{ scale: 1.01, backgroundColor: '#f8fafc' }}
+                    whileTap={{ scale: 0.98 }}
                     onClick={completeOnboarding} disabled={loading}
                     style={{
-                      display: 'block', width: '100%', padding: '11px',
-                      background: 'transparent', border: '1.5px solid #e2e8f0',
-                      borderRadius: 10, fontSize: 13, color: '#0f172a', fontWeight: 600,
-                      cursor: 'pointer', marginTop: 10, transition: 'all 0.2s',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+                      width: '100%', padding: '14px',
+                      background: 'rgba(255,255,255,0.5)', border: '1px solid rgba(0,0,0,0.1)',
+                      borderRadius: 12, fontSize: 14, color: 'var(--obsidian)', fontWeight: 600,
+                      cursor: 'pointer', transition: 'border-color 0.2s',
                     }}
-                    onMouseEnter={e => { e.currentTarget.style.background = '#f8fafc' }}
-                    onMouseLeave={e => { e.currentTarget.style.background = 'transparent' }}
                   >
-                    {loading ? 'Loading...' : 'Go to Dashboard →'}
-                  </button>
+                    {loading ? 'Entering dashboard...' : 'Go to Dashboard →'}
+                  </motion.button>
                 </div>
-              </StepCard>
+              </div>
             </motion.div>
           )}
 

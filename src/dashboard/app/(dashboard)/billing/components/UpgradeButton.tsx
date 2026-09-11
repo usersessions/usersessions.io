@@ -62,7 +62,8 @@ export function UpgradeButton({ planId }: UpgradeButtonProps) {
       const handler = window.PaystackPop.setup({
         key: data.paystackPublicKey,
         email: data.email,
-        amount: data.amount,
+        // Note: do NOT pass `amount` alongside `plan` — Paystack derives the
+        // amount from the plan itself. Passing both causes "no active channel" errors.
         plan: data.paystackPlanCode,
         ref: data.reference,
         metadata: data.metadata ?? {},

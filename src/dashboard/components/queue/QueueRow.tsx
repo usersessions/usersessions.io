@@ -74,9 +74,9 @@ export function QueueRow({
         transition: 'color 200ms ease',
       }}>
         {executingAction
-          ? `⟳ ${executingAction.composio_toolkit} · executing`
+          ? `⟳ ${executingAction.composio_toolkit.toLowerCase()} · executing`
           : pendingAction
-            ? `${pendingAction.composio_toolkit} · ${pendingAction.composio_action.replace(/_/g, ' ')}`
+            ? `${pendingAction.composio_toolkit.toLowerCase()} · ${pendingAction.composio_action.replace(/_/g, ' ').toLowerCase()}`
             : 'Review'}
       </span>
       <span className="ds-queue-grid-hide-on-mobile" style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 500, color: 'var(--text-muted)', letterSpacing: '0.04em', textAlign: 'right' }}>{formatTime(finding.created_at)}</span>

@@ -181,7 +181,7 @@ export const PLANS: Record<PlanId, PlanConfig> = {
     },
     features: [
       'Unlimited sessions',
-      'Unlimited actions (BYO Composio)',
+      'Unlimited automated actions',
       'Unlimited sites',
       'Unlimited team seats',
       'Self-hosted option ($30K/yr flat)',
