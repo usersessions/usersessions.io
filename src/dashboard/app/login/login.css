@@ -1,0 +1,7 @@
+/* Import homepage styles to inherit nav, premium-bg, and glassmorphism */
+@import '../home/homepage.css';
+
+/* Override: auth page sits below the nav, so remove the left panel's default top padding */
+.hp main {
+  padding-top: 0;
+}

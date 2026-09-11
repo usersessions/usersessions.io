@@ -1,0 +1,17 @@
+UserSessions.io Enterprise Edition License
+
+Copyright (c) 2026 UserSessions.io
+
+The code in this directory (ee/) and in src/dashboard/ee/ and
+src/dashboard/lib/billing/ is source-available software.
+
+You may inspect, fork, and modify this code for private evaluation
+and internal testing purposes. You may NOT deploy or operate this
+code in production, or offer it as a hosted service, without a
+commercial licence from UserSessions.io.
+
+To obtain a commercial licence, contact: <info@usersessions.io>
+
+All other rights reserved.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.

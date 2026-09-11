@@ -1,0 +1,489 @@
+/*
+ * SINGLE SOURCE OF TRUTH for design tokens — DESIGN.md is the spec, this file is the implementation.
+ * Consumed by apps/dashboard/app/globals.css AND apps/extension/src/style.css.
+ * Never redefine these values locally. Zero hex codes anywhere else in the codebase.
+ */
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700&family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,opsz,wght@0,9..40,400..900;1,9..40,400..900&display=swap');
+
+:root {
+  /* Permanent Light Theme Tokens */
+  --ink: #f8fafc;
+  --bg-primary: #f8fafc;
+  --text-primary: #0f172a;
+  --glass-bg: rgba(255, 255, 255, 0.8);
+  --glass-bg-hover: rgba(255, 255, 255, 0.9);
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --glass-border-heavy: rgba(0, 0, 0, 0.12);
+  --ink-2: #ffffff;
+  --paper: #0f172a;
+  --muted: #6b7280;
+  --muted-2: #9ca3af;
+  --border: #e5e7eb;
+  --primary: #6366F1;
+  --primary-dim: rgba(99, 102, 241, 0.1);
+  --cyan: #06b6d4;
+  --green: #10b981;
+  --amber: #f59e0b;
+  --red: #ef4444;
+
+  /* Typography */
+  --font-serif: 'Instrument Serif', Georgia, serif;
+  --font-sans: 'Syne', system-ui, sans-serif;
+  --font-mono: 'DM Mono', ui-monospace, monospace;
+
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+  --space-2xl: 64px;
+
+  /* Radius & elevation */
+  --rounded-sm: 4px;
+  --rounded-md: 8px;
+  --rounded-lg: 16px;
+  --shadow-glow-primary: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+}
+
+/* Font-role utilities — defined ONCE, used everywhere */
+.font-serif-metric { font-family: var(--font-serif); font-size: 3rem; line-height: 1.05; color: var(--text-primary); }
+.font-sans-label   { font-family: var(--font-sans); font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.01em; }
+.font-sans-body    { font-family: var(--font-sans); font-size: 0.9375rem; line-height: 1.6; color: var(--muted); }
+.font-mono-data    { font-family: var(--font-mono); font-size: 0.875rem; }
+.font-mono-label   { font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.font-mono-micro   { font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.06em; color: var(--muted-2); }
+
+/* Status classes — identical across extension popup, dashboard, admin */
+.status-live, .status-pending, .status-dead, .status-running {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px var(--space-sm);
+  border-radius: var(--rounded-sm);
+  border: 1px solid var(--border);
+  background: var(--ink-2);
+  display: inline-block;
+}
+.status-live    { color: var(--green); }
+.status-pending { color: var(--amber); }
+.status-dead    { color: var(--red); }
+.status-running { color: var(--cyan); }
+
+/* Core components — defined once */
+.card {
+  background: var(--ink-2);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--rounded-md);
+  padding: var(--space-lg);
+}
+.card--dense { padding: var(--space-md); }
+
+.btn-primary {
+  font-family: var(--font-sans); font-weight: 600; font-size: 0.875rem;
+  background: var(--primary); color: var(--text-primary);
+  border: none; border-radius: var(--rounded-sm);
+  padding: var(--space-sm) var(--space-md);
+  cursor: pointer; transition: box-shadow 150ms ease;
+}
+.btn-primary:hover { box-shadow: var(--shadow-glow-primary); }
+.btn-primary:disabled { background: var(--muted-2); cursor: not-allowed; box-shadow: none; }
+
+.btn-ghost {
+  font-family: var(--font-sans); font-weight: 600; font-size: 0.875rem;
+  background: var(--ink-2); color: var(--text-primary);
+  border: 1px solid var(--border); border-radius: var(--rounded-sm);
+  padding: var(--space-sm) var(--space-md);
+  cursor: pointer;
+}
+.btn-ghost:hover { background: var(--primary-dim); }
+
+.input-field {
+  font-family: var(--font-mono); font-size: 0.875rem;
+  background: var(--bg-primary); color: var(--text-primary);
+  border: 1px solid var(--border); border-radius: var(--rounded-sm);
+  padding: var(--space-sm) var(--space-md);
+  width: 100%;
+}
+.input-field::placeholder { color: var(--muted-2); }
+.input-field:focus { outline: 2px solid var(--primary); outline-offset: 1px; }
+
+/* App-shell navigation — dashboard sidebar links */
+.nav-link {
+  font-family: var(--font-sans); font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.01em;
+  display: block; color: var(--muted); text-decoration: none;
+  border-radius: var(--rounded-sm);
+  padding: var(--space-sm) var(--space-md);
+  transition: color 150ms ease, background 150ms ease;
+}
+.nav-link:hover { color: var(--text-primary); background: var(--primary-dim); }
+.nav-link--active { color: var(--text-primary); background: var(--primary-dim); box-shadow: inset 2px 0 0 var(--primary); }
+
+/* Segmented tab switch — auth screens and mode toggles */
+.tab-switch {
+  display: flex; gap: 2px; padding: 2px;
+  background: var(--bg-primary); border: 1px solid var(--border); border-radius: var(--rounded-sm);
+}
+.tab-switch button {
+  flex: 1;
+  font-family: var(--font-sans); font-weight: 600; font-size: 0.8125rem;
+  background: transparent; color: var(--muted);
+  border: none; border-radius: var(--rounded-sm);
+  padding: var(--space-sm) var(--space-md);
+  cursor: pointer; transition: color 150ms ease, background 150ms ease;
+}
+.tab-switch button:hover { color: var(--text-primary); }
+.tab-switch button.is-active { background: var(--ink-2); color: var(--text-primary); box-shadow: 0 0 0 1px var(--border); }
+
+/* Meter — compact score bar (cyan = computed signal, muted = editorial estimate) */
+.meter { height: 4px; width: 100%; background: var(--border); border-radius: var(--rounded-sm); overflow: hidden; }
+.meter > span { display: block; height: 100%; background: var(--cyan); }
+.meter > span.meter--estimate { background: var(--muted-2); }
+
+/* ============================================================
+ * INK THEME — Product UI (Dashboard, Auth, etc)
+ * Specified in DESIGN.md
+ * ============================================================ */
+[data-theme="ink"] {
+  --black: #000000;
+  --prussian-blue: #14213d;
+  --orange: #fca311;
+  --alabaster-grey: #e5e5e5;
+  --white: #ffffff;
+
+  /* Derived Text Hierarchy */
+  --text-primary: var(--white);
+  --text-secondary: rgba(255,255,255,0.70);
+  --text-muted: rgba(255,255,255,0.45);
+  --text-ghost: rgba(255,255,255,0.25);
+  --line: rgba(229,229,229,0.14);
+
+  /* Derived Orange */
+  --orange-deep: color-mix(in srgb, var(--orange) 80%, black);
+  --orange-soft: color-mix(in srgb, var(--orange) 60%, white);
+  --orange-pale: color-mix(in srgb, var(--orange) 30%, white);
+
+  /* Shadows */
+  --card-shadow: 
+    0 1px 2px rgba(0,0,0,0.4),
+    0 4px 12px rgba(0,0,0,0.35),
+    inset 0 1px 0 rgba(255,255,255,0.04);
+    
+  --panel-shadow: 
+    0 40px 80px -30px rgba(0,0,0,0.6),
+    0 16px 32px -12px rgba(0,0,0,0.4),
+    inset 0 1px 0 rgba(255,255,255,0.06);
+    
+  --cta-glow: 
+    0 0 20px rgba(252,163,17,0.3), 
+    0 4px 12px rgba(252,163,17,0.22);
+}
+
+/* ============================================================
+ * WARM / PAPER THEME — public marketing & landing pages only
+ * Scope with data-theme="warm" on <html> or a wrapper element.
+ * The dark dashboard layout is untouched.
+ * ============================================================ */
+[data-theme="warm"] {
+  --font-dm: 'DM Sans', system-ui, sans-serif;
+
+  /* Paper backgrounds */
+  --warm-bg:   #f5efe2;
+  --warm-bg-2: #ede6d6;
+
+  /* Typography */
+  --warm-ink:      #141416;
+  --warm-ink-soft: #2b2b30;
+  --warm-mute:     #8b847a;
+  --warm-ghost:    #c5bfae;   /* faded hero text */
+  --warm-line:     #dad2bf;
+
+  /* Brand orange gradient */
+  --warm-or1: #d9351f;
+  --warm-or2: #e85a2b;
+  --warm-or3: #f58b4e;
+  --warm-or4: #fdc68a;
+
+  /* Shadows */
+  --warm-card-shadow:
+    0 30px 50px -16px rgba(180, 50, 20, 0.5),
+    0 14px 26px -8px rgba(140, 40, 10, 0.32),
+    inset 0 2px 0 rgba(255, 220, 180, 0.45),
+    inset 0 -4px 8px rgba(120, 20, 0, 0.4);
+  --warm-btn-shadow:
+    0 12px 20px -8px rgba(0, 0, 0, 0.4),
+    0 4px 8px -2px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.4);
+  --warm-panel-shadow:
+    0 40px 80px -30px rgba(20, 8, 0, 0.45),
+    0 16px 32px -12px rgba(20, 8, 0, 0.25),
+    inset 0 1px 0 var(--glass-border);
+}
+
+/* Apply warm defaults to body when the theme is active */
+[data-theme="warm"] body,
+[data-theme="warm"] {
+  background: radial-gradient(120% 70% at 50% 0%, #f8f3e7 0%, #f2ead6 60%, #e9dec3 100%);
+  color: var(--warm-ink);
+  font-family: var(--font-dm);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* -----------------------------------------------------------
+ * Grain overlay — drop <div class="global-grain" /> in layout
+ * ----------------------------------------------------------- */
+.global-grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.06;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1  0 0 0 0 0.1  0 0 0 0 0.1  0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* -----------------------------------------------------------
+ * Warm typography utilities
+ * ----------------------------------------------------------- */
+.warm-h1 {
+  font-family: var(--font-dm);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  color: var(--warm-ink);
+}
+.warm-h2 {
+  font-family: var(--font-dm);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: var(--warm-ink);
+}
+.warm-eyebrow {
+  font-family: var(--font-dm);
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--warm-mute);
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.warm-eyebrow::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--warm-or1);
+  box-shadow: 0 0 0 3px rgba(217, 53, 31, 0.2);
+  flex-shrink: 0;
+}
+
+/* -----------------------------------------------------------
+ * Warm button — replaces btn-primary for marketing pages
+ * ----------------------------------------------------------- */
+.btn-warm {
+  font-family: var(--font-dm);
+  font-weight: 600;
+  font-size: 0.875rem;
+  background: var(--warm-ink);
+  color: #fafaf7;
+  border: none;
+  border-radius: 999px;
+  padding: 12px 22px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  box-shadow: var(--warm-btn-shadow);
+  transition: transform 0.4s cubic-bezier(0.6, 0, 0.2, 1);
+  white-space: nowrap;
+}
+.btn-warm:hover { transform: translateY(-2px); }
+.btn-warm--orange {
+  background: linear-gradient(135deg, var(--warm-or1), var(--warm-or2));
+}
+
+/* -----------------------------------------------------------
+ * Warm gradient card (style/feature cards)
+ * ----------------------------------------------------------- */
+.card-warm {
+  border-radius: 22px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: var(--warm-card-shadow);
+  cursor: pointer;
+  transition: transform 0.5s cubic-bezier(0.6, 0, 0.2, 1), box-shadow 0.5s;
+}
+.card-warm::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    155deg,
+    rgba(255, 255, 255, 0.22) 0%,
+    transparent 30%,
+    transparent 70%,
+    rgba(100, 20, 0, 0.22) 100%
+  );
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 2;
+}
+.card-warm:hover { transform: translateY(-10px) rotate(-1deg); }
+
+/* -----------------------------------------------------------
+ * Warm dark panel (stats / CTA blocks)
+ * ----------------------------------------------------------- */
+.panel-warm {
+  background: var(--warm-ink);
+  border-radius: 36px;
+  color: #f4edde;
+  box-shadow: var(--warm-panel-shadow);
+  position: relative;
+  overflow: hidden;
+}
+.panel-warm::before {
+  content: '';
+  position: absolute;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(232, 90, 43, 0.35), transparent 65%);
+  top: -200px; right: -100px;
+  filter: blur(40px);
+  pointer-events: none;
+}
+.panel-warm::after {
+  content: '';
+  position: absolute;
+  width: 350px; height: 350px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(253, 198, 138, 0.2), transparent 65%);
+  bottom: -150px; left: 20%;
+  filter: blur(30px);
+  pointer-events: none;
+}
+
+/* -----------------------------------------------------------
+ * Warm URL input box
+ * ----------------------------------------------------------- */
+.input-warm-wrap {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1.5px solid rgba(20, 20, 22, 0.12);
+  border-radius: 16px;
+  padding: 8px;
+  box-shadow: 0 24px 48px -12px rgba(20, 10, 0, 0.18), 0 8px 16px -4px rgba(20, 10, 0, 0.08);
+  transition: border-color 0.3s, box-shadow 0.3s;
+  display: flex;
+  gap: 8px;
+}
+.input-warm-wrap:focus-within {
+  border-color: var(--warm-or1);
+  box-shadow: 0 0 0 4px rgba(217, 53, 31, 0.12), 0 24px 48px -12px rgba(20, 10, 0, 0.2);
+}
+.input-warm {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-family: var(--font-dm);
+  font-size: 15px;
+  color: var(--warm-ink);
+  padding: 10px 14px;
+  outline: none;
+}
+.input-warm::placeholder { color: var(--warm-mute); }
+.input-warm-submit {
+  background: var(--warm-ink);
+  color: #fafaf7;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-family: var(--font-dm);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.3s, transform 0.2s;
+  box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.3);
+}
+.input-warm-submit:hover {
+  background: var(--warm-or1);
+  transform: translateY(-1px);
+}
+
+/* ============================================================
+ * INK-LIGHT THEME — Dashboard light mode
+ * Apply with data-theme="ink-light" on the dashboard root div.
+ * The alabaster canvas is intentional — glassmorphism is
+ * invisible against pure white; the grey canvas is what makes
+ * the dock's blur effect actually read as glass.
+ * ============================================================ */
+[data-theme="ink-light"] {
+  --black:                #ffffff; /* Invert base so components relying on --black flip to white cards */
+  --prussian-blue:        #14213d;
+  --orange:               #fca311;
+  --alabaster-grey:       #e5e5e5;
+  --white:                #ffffff;
+
+  /* Derived Orange */
+  --orange-deep: color-mix(in srgb, var(--orange) 80%, black);
+  --orange-soft: color-mix(in srgb, var(--orange) 60%, white);
+  --orange-pale: color-mix(in srgb, var(--orange) 30%, white);
+
+  --bg-canvas:            #E5E5E5;
+  --text-primary-light:   #000000;
+  --text-secondary-light: rgba(0, 0, 0, 0.65);
+
+  /* Override core dashboard variables for light theme */
+  --text-primary:         #000000;
+  --text-secondary:       rgba(0, 0, 0, 0.65);
+  --text-muted:           rgba(0, 0, 0, 0.45);
+  --text-ghost:           rgba(0, 0, 0, 0.25);
+  --line:                 rgba(0, 0, 0, 0.08);
+  
+  --glass-bg:             rgba(255, 255, 255, 0.7);
+  --glass-border:         rgba(0, 0, 0, 0.08);
+  --glass-border-heavy:   rgba(0, 0, 0, 0.12);
+  --glass-bg-hover:       rgba(255, 255, 255, 0.9);
+
+  /* Glass surface — dock and floating panels */
+  --glass-panel:          rgba(255, 255, 255, 0.65);
+  --glass-blur:           blur(20px);
+  --glass-border-light:   rgba(0, 0, 0, 0.08);
+  --glass-shadow-light:
+    0 8px 32px rgba(0, 0, 0, 0.10),
+    0 2px 8px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55);
+
+  /* Card surfaces */
+  --card-light:           rgba(255, 255, 255, 0.90);
+  --card-border-light:    rgba(0, 0, 0, 0.07);
+  --card-shadow-light:
+    0 1px 3px rgba(0, 0, 0, 0.06),
+    0 4px 16px rgba(0, 0, 0, 0.05);
+
+  /* Header surface */
+  --header-bg-light:      rgba(240, 240, 238, 0.88);
+  --header-border-light:  rgba(0, 0, 0, 0.07);
+
+  /* Shadows adapted for light background */
+  --card-shadow: 
+    0 1px 2px rgba(0,0,0,0.05),
+    0 4px 12px rgba(0,0,0,0.03),
+    inset 0 1px 0 rgba(255,255,255,0.8);
+    
+  --panel-shadow: 
+    0 20px 40px -10px rgba(0,0,0,0.08),
+    0 10px 20px -5px rgba(0,0,0,0.04),
+    inset 0 1px 0 rgba(255,255,255,0.8);
+}

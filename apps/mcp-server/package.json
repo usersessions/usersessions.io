@@ -1,0 +1,20 @@
+{
+  "name": "usersessions-mcp-server",
+  "version": "1.0.0",
+  "description": "Cloudflare Worker MCP server — connects Claude/Cursor to UserSessions.io account data.",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "dependencies": {
+    "agents": "^0.0.60",
+    "@modelcontextprotocol/sdk": "^1.5.0",
+    "@supabase/supabase-js": "^2.45.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "wrangler": "^4.20.0",
+    "typescript": "^5.5.0"
+  }
+}

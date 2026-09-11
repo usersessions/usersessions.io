@@ -1,0 +1,17 @@
+{
+  "name": "usersessions",
+  "version": "1.0.0",
+  "description": "AI that watches your users, finds what's breaking their experience, and fixes it automatically.",
+  "private": true,
+  "packageManager": "pnpm@9.15.0",
+  "scripts": {
+    "build": "pnpm -r build",
+    "deploy:dashboard": "pnpm run build && cd src/dashboard && npx wrangler deploy",
+    "deploy:mcp": "cd apps/mcp-server && wrangler deploy",
+    "dev:dashboard": "pnpm --filter dashboard dev",
+    "dev:mcp": "pnpm --filter usersessions-mcp-server dev"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  }
+}

@@ -1,0 +1,5 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+  - "src/*"
+  - "!apps/render-worker" # deployed separately to Fly.io — not part of Cloudflare CI build

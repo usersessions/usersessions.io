@@ -1,0 +1,13 @@
+{
+  "name": "@usersessions/cli",
+  "version": "1.0.0",
+  "description": "Connect your AI client to UserSessions.io and install the capture script.",
+  "type": "module",
+  "bin": {
+    "usersessions": "./bin/usersessions.mjs"
+  },
+  "files": ["bin"],
+  "engines": {
+    "node": ">=18"
+  }
+}

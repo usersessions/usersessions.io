@@ -1,0 +1,34 @@
+# Dependencies
+node_modules/
+dist/
+
+# Environment files — never commit real secrets. Only the example template is tracked.
+.env
+.env.*
+!.env.example
+
+# Build artifacts
+*.log
+tsconfig.tsbuildinfo
+.next/
+.open-next/
+.wrangler/
+.dev.vars
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE / editor
+.vscode/settings.json
+.idea/
+
+# Antigravity IDE / agent internals — never push these
+.agents/
+.codex/
+.impeccable/
+
+# Scratch / internal docs not for public consumption
+CODEBASE_AUDIT.md
+PROJECT_HANDOFF.md
+scripts/

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Sign in to usersessions</title>
+<style>
+  @media only screen and (max-width: 640px) {
+    .email-card { padding: 28px 18px !important; }
+    .cta-btn { min-width: 140px !important; padding: 13px 20px !important; }
+  }
+</style>
+</head>
+<body style="margin:0;padding:0;background-color:#F2EAD6;font-family:'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#F2EAD6;">
+<tr><td align="center" style="padding:40px 12px 60px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;">
+
+  <!-- Wordmark -->
+  <tr><td align="center" style="padding-bottom:28px;">
+    <a href="https://usersessions.io" style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:24px;color:#1A150F;text-decoration:none;letter-spacing:-0.02em;">usersessions</a>
+  </td></tr>
+
+  <!-- Card -->
+  <tr><td class="email-card" style="background-color:#FDFBF6;border:1.5px solid #E2D9C8;border-radius:16px;padding:40px 36px;box-shadow:0 2px 8px rgba(20,15,0,0.06);">
+
+    <!-- Orange accent bar -->
+    <div style="height:3px;border-radius:2px;background:linear-gradient(90deg,#D9351F,#F58B4E);margin-bottom:28px;"></div>
+
+    <!-- Title -->
+    <h1 style="margin:0;font-family:'DM Sans',-apple-system,sans-serif;font-size:22px;line-height:1.3;font-weight:800;color:#1A150F;letter-spacing:-0.03em;">Your sign-in link</h1>
+    <p style="margin:8px 0 0;font-family:'DM Sans',-apple-system,sans-serif;font-size:15px;line-height:1.5;color:#7A6E63;">Click the button below to sign in. This link expires in 1 hour and can only be used once.</p>
+
+    <!-- Divider -->
+    <div style="border-top:1px solid #E2D9C8;margin:24px 0;"></div>
+
+    <!-- Body -->
+    <p style="margin:0 0 12px;font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6;color:#7A6E63;">
+      If you didn't request this link, you can safely ignore this email — your account is untouched.
+    </p>
+
+    <!-- CTA -->
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+      <tr><td align="center" style="padding:28px 0 0;">
+        <a class="cta-btn" href="{{ .ConfirmationURL }}" style="display:inline-block;min-width:200px;text-align:center;padding:13px 28px;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;text-decoration:none;letter-spacing:-0.01em;background:linear-gradient(135deg,#D9351F,#E55C2A);color:#fff;">
+          Sign in to usersessions →
+        </a>
+      </td></tr>
+    </table>
+
+    <!-- Fallback URL -->
+    <p style="margin:20px 0 0;font-family:'DM Mono','SF Mono',monospace;font-size:11px;line-height:1.5;color:#B0A898;word-break:break-all;">
+      Or copy this link: <a href="{{ .ConfirmationURL }}" style="color:#D9351F;text-decoration:underline;">{{ .ConfirmationURL }}</a>
+    </p>
+
+  </td></tr>
+
+  <!-- Footer -->
+  <tr><td align="center" style="padding:28px 16px 0;">
+    <p style="margin:0 0 6px;font-family:'DM Sans',sans-serif;font-size:12px;color:#B0A898;">The autonomous remediation layer — <a href="https://usersessions.io" style="color:#7A6E63;text-decoration:none;">usersessions.io</a></p>
+    <p style="margin:0;font-family:'DM Sans',sans-serif;font-size:12px;color:#B0A898;">You received this because you requested a sign-in link.</p>
+  </td></tr>
+
+</table>
+</td></tr>
+</table>
+</body>
+</html>
