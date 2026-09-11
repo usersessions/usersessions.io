@@ -22,7 +22,7 @@ import {
   useReducedMotion,
   AnimatePresence,
   type MotionValue,
-} from 'framer-motion'
+} from 'motion/react'
 import {
   PiHouseBold,
   PiFireBold,
