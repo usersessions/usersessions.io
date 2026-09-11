@@ -1,8 +1,9 @@
 'use client'
 
-import React, { useEffect, useState, useMemo } from 'react'
+import React, { useEffect, useRef, useState, useMemo } from 'react'
 import { createClient } from '@/lib/supabase/client'
-import { motion, AnimatePresence } from "motion/react"
+import { motion } from "motion/react"
+import createGlobe from "cobe"
 
 // [lng, lat] centroids for common country codes
 const CENTROIDS: Record<string, [number, number]> = {
@@ -30,20 +31,6 @@ function countryCentroid(code: string): [number, number] | null {
   return CENTROIDS[code.toLowerCase()] ?? null
 }
 
-
-function anonName(id: string): string {
-  const ADJECTIVES = ['Swift', 'Quiet', 'Bold', 'Calm', 'Bright', 'Keen', 'Sharp', 'Cool']
-  const ANIMALS = ['Panda', 'Fox', 'Owl', 'Wolf', 'Bear', 'Hawk', 'Lynx', 'Deer']
-  const hash = id.split('').reduce((a, c) => (a * 31 + c.charCodeAt(0)) & 0xffff, 0)
-  return `${ADJECTIVES[hash % ADJECTIVES.length]} ${ANIMALS[(hash >> 5) % ANIMALS.length]}`
-}
-
-function anonColor(id: string): string {
-  const COLORS = ['#f97316', '#3b82f6', '#8b5cf6', '#22c55e', '#ec4899', '#06b6d4']
-  const hash = id.split('').reduce((a, c) => (a * 31 + c.charCodeAt(0)) & 0xffff, 0)
-  return COLORS[hash % COLORS.length]
-}
-
 function pseudoCountry(id: string): string {
   const codes = ['us', 'gb', 'fr', 'de', 'ca', 'au', 'in', 'jp', 'br', 'za', 'ng', 'ke', 'mx', 'sg', 'ae']
   const hash = id.split('').reduce((a, c) => (a * 31 + c.charCodeAt(0)) & 0xffff, 0)
@@ -54,6 +41,7 @@ interface LiveVisitor { id: string; created_at: string }
 
 export function LiveMap({ clientId }: { clientId: string | null }) {
   const [visitors, setVisitors] = useState<LiveVisitor[]>([])
+  const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
     if (!clientId) return
@@ -84,13 +72,40 @@ export function LiveMap({ clientId }: { clientId: string | null }) {
       
       const lng = centroid[0] + radius * Math.cos(angle)
       const lat = centroid[1] + radius * Math.sin(angle)
-
-      const x = ((lng + 180) / 360) * 100
-      const y = (1 - (lat + 90) / 180) * 100
-
-      return [{ id: v.id, x, y, name: anonName(v.id), color: anonColor(v.id) }]
+      
+      return [{ location: [lat, lng], size: 0.05 }]
     })
   }, [visitors])
+
+  useEffect(() => {
+    let phi = 0;
+    if (!canvasRef.current) return;
+    
+    // Check if system is dark mode
+    const isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    const globe = createGlobe(canvasRef.current, {
+      devicePixelRatio: 2,
+      width: 1000,
+      height: 1000,
+      phi: 0,
+      theta: 0.3,
+      dark: isDark ? 1 : 0,
+      diffuse: 1.2,
+      mapSamples: 16000,
+      mapBrightness: 6,
+      baseColor: isDark ? [0.3, 0.3, 0.3] : [1, 1, 1],
+      markerColor: [0.133, 0.772, 0.368], // #22c55e
+      glowColor: isDark ? [0.1, 0.1, 0.1] : [0.9, 0.9, 0.9],
+      markers: plotted as any,
+      onRender: (state) => {
+        state.phi = phi;
+        phi += 0.003;
+      },
+    });
+
+    return () => globe.destroy();
+  }, [plotted])
 
   if (!clientId) return null
 
@@ -104,15 +119,10 @@ export function LiveMap({ clientId }: { clientId: string | null }) {
       background: 'var(--glass-bg)',
       border: '1px solid var(--border)',
       boxShadow: '0 1px 2px rgba(0,0,0,0.02)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
     }}>
-      <div style={{
-        position: 'absolute', inset: 0, opacity: 0.4,
-        backgroundImage: 'radial-gradient(circle at 1px 1px, var(--border) 1px, transparent 0)',
-        backgroundSize: '16px 16px',
-        maskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(0,0,0,0.1))',
-        WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(0,0,0,0.1))'
-      }} />
-
       <div style={{
         position: 'absolute', top: 16, left: 16, zIndex: 10,
         display: 'flex', alignItems: 'center', gap: 8,
@@ -132,60 +142,11 @@ export function LiveMap({ clientId }: { clientId: string | null }) {
         </span>
       </div>
 
-      <div style={{ position: 'absolute', inset: '40px 20px 20px 20px' }}>
-        <AnimatePresence>
-          {plotted.map(v => (
-            <motion.div
-              key={v.id}
-              initial={{ scale: 0, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0, opacity: 0 }}
-              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-              style={{
-                position: 'absolute',
-                left: `${v.x}%`,
-                top: `${v.y}%`,
-                transform: 'translate(-50%, -50%)',
-                zIndex: 5
-              }}
-            >
-              <motion.div
-                animate={{ scale: [1, 2.5], opacity: [0.5, 0] }}
-                transition={{ duration: 2, repeat: Infinity, ease: 'easeOut' }}
-                style={{
-                  position: 'absolute',
-                  inset: -6,
-                  borderRadius: '50%',
-                  background: v.color,
-                }}
-              />
-              
-              <div
-                style={{
-                  position: 'relative',
-                  width: 28, height: 28, borderRadius: '50%',
-                  border: '2px solid var(--bg-primary)',
-                  background: v.color,
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: 11, fontWeight: 800, color: '#fff',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
-                  cursor: 'pointer',
-                  zIndex: 2,
-                }}
-                title={v.name}
-              >
-                {v.name.charAt(0)}
-                
-                <div style={{
-                  position: 'absolute', right: -2, top: -2,
-                  width: 9, height: 9, borderRadius: '50%',
-                  background: '#22c55e',
-                  border: '2px solid var(--bg-primary)',
-                }} />
-              </div>
-            </motion.div>
-          ))}
-        </AnimatePresence>
+      <div style={{ width: '100%', height: '100%', maxWidth: 500, aspectRatio: '1/1', opacity: 0.9, transform: 'translateY(10%)' }}>
+        <canvas
+          ref={canvasRef}
+          style={{ width: '100%', height: '100%', cursor: 'grab', contain: 'layout paint size' }}
+        />
       </div>
     </div>
   )
