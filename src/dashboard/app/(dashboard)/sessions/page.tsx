@@ -41,11 +41,10 @@ export default async function HeatmapsPage() {
   const { data: sessions } = client?.id ? await supabase
     .from('us_sessions')
     .select(`
-      id, source, source_session_id, rage_click_count, error_count, page_url, ingested_at, started_at,
+      id, source, source_session_id, rage_click_count, error_count, ingested_at, started_at,
       us_findings ( id )
     `)
     .eq('client_id', client.id)
-    .not('replay_url', 'is', null) // Only show sessions that still have replays
     .order('ingested_at', { ascending: false })
     .limit(50)
   : { data: [] }
@@ -56,7 +55,6 @@ export default async function HeatmapsPage() {
     source_session_id: s.source_session_id,
     rage_click_count: s.rage_click_count,
     error_count: s.error_count,
-    page_url: s.page_url,
     created_at: s.started_at ?? s.ingested_at,
     has_findings: Array.isArray(s.us_findings) && s.us_findings.length > 0,
   }))
