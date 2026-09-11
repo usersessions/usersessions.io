@@ -110,7 +110,6 @@ export async function POST(req: Request) {
     rage_click_count: rageClickCount,
     error_count: errorCount,
     scroll_depth_pct: scrollDepth,
-    page_url: url,
     raw_metadata: {
       viewport,
       appliedPatches: Array.isArray(data.appliedPatches) ? data.appliedPatches.slice(0, 50) : [],
