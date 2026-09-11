@@ -42,7 +42,7 @@ export function OpenSourceSection() {
   const [copied, setCopied] = useState(false)
 
   const handleCopy = () => {
-    navigator.clipboard.writeText('npx @usersessions/cli connect')
+    navigator.clipboard.writeText('claude mcp add usersessions sse https://mcp.usersessions.io/sse')
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
   }
@@ -76,7 +76,7 @@ export function OpenSourceSection() {
 
             <div className="copy-box" onClick={handleCopy} role="button" tabIndex={0}>
               <div className="copy-code">
-                <span className="npx">URL:</span> https://mcp.usersessions.io/sse
+                <span className="npx">claude</span> mcp add usersessions sse https://mcp.usersessions.io/sse
               </div>
               <button className="copy-btn" aria-label="Copy command">
                 {copied ? (
