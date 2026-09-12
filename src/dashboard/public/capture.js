@@ -128,7 +128,6 @@
     const s = document.createElement('script');
     s.src = RRWEB_CDN;
     s.crossOrigin = 'anonymous';
-    s.integrity = 'sha384-IrLW6qLLwE3rksiTjki0mUENGv3UUVw8HIcUiuONNxHr4wGwFqJue7Vj/qj9K3AV';
     s.setAttribute('data-us-rrweb', '1');
     s.onload = startRrweb;
     document.head.appendChild(s);
